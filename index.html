@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tharindu Ruwantha — Developer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #C8A96E;
+    --bg: #0E0E0E;
+    --surface: #161616;
+    --surface2: #1F1F1F;
+    --text: #F0EDE6;
+    --muted: #888;
+    --border: rgba(255,255,255,0.07);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-weight: 300;
+    line-height: 1.7; font-size: 16px;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(14,14,14,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    color: var(--accent); text-decoration: none; letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.875rem; letter-spacing: 0.06em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 8rem 4rem 4rem; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(200,169,110,0.07) 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-label {
+    display: inline-block; font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+    border: 1px solid rgba(200,169,110,0.3); padding: 6px 14px; border-radius: 2px;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem); line-height: 1.05;
+    font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.02em;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-tagline {
+    font-size: 1.125rem; color: var(--muted);
+    max-width: 500px; margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    padding: 0.875rem 2rem; border-radius: 3px;
+    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block;
+  }
+  .btn-primary { background: var(--accent); color: #0E0E0E; border: none; }
+  .btn-primary:hover { background: #d4b87a; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  .section-divider { width: 40px; height: 2px; background: var(--accent); margin-bottom: 3rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  #about .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
+  .about-photo {
+    aspect-ratio: 3/4; background: var(--surface2); border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 0.875rem; position: relative;
+  }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-placeholder { text-align: center; padding: 2rem; position: absolute; }
+  .about-bio { font-size: 1.05rem; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
+  .skills-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  .skill-tag {
+    padding: 5px 14px; font-size: 0.8rem; letter-spacing: 0.05em;
+    border: 1px solid var(--border); border-radius: 2px;
+    color: var(--muted); background: var(--surface); transition: all 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+  #projects { background: var(--surface); }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden; transition: transform 0.25s, border-color 0.25s;
+  }
+  .project-card:hover { transform: translateY(-4px); border-color: rgba(200,169,110,0.3); }
+  .project-thumb {
+    aspect-ratio: 16/9; background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 3rem; overflow: hidden; opacity: 1;
+  }
+  .project-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover .project-thumb img { transform: scale(1.04); }
+  .project-body { padding: 1.5rem; }
+  .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .project-tag {
+    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); padding: 3px 8px;
+    border: 1px solid rgba(200,169,110,0.25); border-radius: 2px;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif; font-size: 1.25rem;
+    font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+  .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .project-link {
+    font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text); text-decoration: none;
+    border-bottom: 1px solid var(--border); padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .project-link:hover { color: var(--accent); border-color: var(--accent); }
+  .project-link.disabled { opacity: 0.35; pointer-events: none; cursor: default; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 3rem; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2rem; top: 8px;
+    width: 9px; height: 9px; background: var(--accent);
+    border-radius: 50%; transform: translateX(-4px);
+  }
+  .timeline-year {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.4rem;
+  }
+  .timeline-role { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .timeline-company { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem; }
+  .timeline-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+  #contact { background: var(--surface); text-align: center; }
+  .contact-email {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 700;
+    color: var(--accent); text-decoration: none;
+    display: block; margin: 1.5rem 0 2rem; transition: opacity 0.2s;
+  }
+  .contact-email:hover { opacity: 0.75; }
+  .social-links { display: flex; justify-content: center; gap: 2rem; }
+  .social-link {
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .social-link:hover { color: var(--accent); }
+  footer {
+    text-align: center; padding: 2rem 4rem;
+    font-size: 0.8rem; color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fadeUp 0.7s ease both; }
+  .hero-label   { animation-delay: 0.1s; }
+  .hero-name    { animation-delay: 0.25s; }
+  .hero-tagline { animation-delay: 0.4s; }
+  .btn-group    { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Tharindu Ruwantha</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-label">Available for internships &amp; junior roles</span>
+    <h1 class="hero-name">
+      Hello, I'm<br><span>Tharindu Ruwantha</span>
+    </h1>
+    <p class="hero-tagline">
+      A mobile &amp; web developer and aspiring Business Analyst from Sri Lanka — bridging technology and business through Flutter, JavaScript, Java, and data-driven thinking.
+    </p>
+    <div class="btn-group">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact"  class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo">
+        <div class="photo-placeholder">
+          <p style="font-size:2rem; margin-bottom:0.5rem"></p>
+          <p style="font-size:0.75rem; margin-top:0.25rem; opacity:0.6"></p>
+        </div>
+        
+             <img src="1.jpeg" alt="Tharindu Ruwantha"> 
+      </div>
+      <div>
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Developer &amp; aspiring<br>Business Analyst</h2>
+        <div class="section-divider"></div>
+        <p class="about-bio">
+          I'm a Mobile &amp; Web App Developer with expertise in Flutter, React, and JavaScript, currently pursuing a BSc in Applied Sciences at Wayamba University of Sri Lanka. I build practical, polished applications — from full-stack mobile apps to automation tools.
+        </p>
+        <p class="about-bio">
+          Over time I've developed a strong interest in Business Analysis, combining my technical background with a desire to understand and optimise business processes. I'm actively learning BA methodologies — requirements gathering, process mapping, and data analysis — to bridge the gap between technology and business. My goal is to grow as a Business Analyst while staying connected to my technical roots.
+        </p>
+        <div class="skills-row">
+          <span class="skill-tag">Flutter</span>
+          <span class="skill-tag">Dart</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">Google Maps API</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Android Studio</span>
+          <span class="skill-tag">Capacitor</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">OOP</span>
+          <span class="skill-tag">Requirements Gathering</span>
+          <span class="skill-tag">Process Mapping</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">Business Analysis</span>
+        </div>
+        <div style="margin-top:2rem;">
+          <a href="CV.pdf" class="btn btn-outline" download>Download CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <p class="section-label">My Work</p>
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="section-divider"></div>
+    <div class="projects-grid">
+
+      <!-- SwiftRide -->
+      <div class="project-card">
+        <div class="project-thumb"><img src="switride.jpeg" alt="SwiftRide app"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Flutter</span>
+            <span class="project-tag">Firebase</span>
+            <span class="project-tag">Google Maps</span>
+          </div>
+          <h3 class="project-title">SwiftRide</h3>
+          <p class="project-desc">
+            A full-stack taxi booking app inspired by PickMe &amp; Uber, built for the Sri Lankan market. Features OTP phone authentication, real-time Google Maps route tracking, multiple ride types (Tuk, Bike, Flex, Mini), automatic fare calculation, live driver matching, and ride history — with complete dark/light theme support.
+          </p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="#" class="project-link disabled">GitHub (Coming Soon)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AutoBot Pro -->
+      <div class="project-card">
+        <div class="project-thumb"><img src="autobot.jpeg" alt="AutoBot Pro"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Flutter</span>
+            <span class="project-tag">Android</span>
+            <span class="project-tag">Automation</span>
+          </div>
+          <h3 class="project-title">AutoBot Pro — Scheduler</h3>
+          <p class="project-desc">
+            A WhatsApp &amp; Facebook automation app built entirely in Flutter. Schedules messages using Android Accessibility Service — no manual tap needed. Supports bulk messaging, retry logic on failure, Facebook story/post automation, message templates, PIN lock, and full background operation even after reboot.
+          </p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://github.com/TRuwantha128" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GPA Calculator -->
+      <div class="project-card">
+        <div class="project-thumb"><img src="gpa.jpeg" alt="GPA Calculator"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Flutter</span>
+            <span class="project-tag">Dart</span>
+            <span class="project-tag">Material Design 3</span>
+          </div>
+          <h3 class="project-title">GPA Calculator</h3>
+          <p class="project-desc">
+            A Flutter mobile app that automatically parses university module codes to organise results by subject, semester, and year. Students select letter grades and instantly get semester GPA, yearly GPA, subject-wise GPA, cumulative GPA, and degree classification. Uses SharedPreferences for fully offline data persistence.
+          </p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://github.com/TRuwantha128" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Super Mario Game -->
+      <div class="project-card">
+        <div class="project-thumb"><img src="super.jpeg" alt="Super Mario Game"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">HTML / CSS</span>
+            <span class="project-tag">Capacitor</span>
+          </div>
+          <h3 class="project-title">Super Mario Game</h3>
+          <p class="project-desc">
+            A fully functional Mario-style platformer with 20 hand-crafted levels, custom mobile touch controls, user login with progress saving, Web Audio API sound effects, and a first-time player tutorial — all built from scratch in vanilla JS/HTML/CSS then converted to a native Android APK with Capacitor.
+          </p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://github.com/TRuwantha128/Mario-Game" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typer Game -->
+      <div class="project-card">
+        <div class="project-thumb"><img src="typer.jpeg" alt="Typer Game"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">HTML / CSS</span>
+            <span class="project-tag">PWA</span>
+          </div>
+          <h3 class="project-title">Typer Game</h3>
+          <p class="project-desc">
+            A modern typing speed game with real-time WPM tracking, accuracy metrics, a streak system, particle effects, and multiple difficulty levels. Built as a single-file PWA with vanilla JS and deployed as an Android app via Capacitor — all from one shared codebase.
+          </p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://github.com/TRuwantha128/Typer-Game" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Waya Sport -->
+      <div class="project-card">
+        <div class="project-thumb"><img src = "wayasport.png"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">SQL</span>
+            <span class="project-tag">OOP</span>
+          </div>
+          <h3 class="project-title">Waya Sport — Sports Management System</h3>
+          <p class="project-desc">
+            A sports management system digitalising Wayamba University's indoor stadium — handling player records, facility bookings, and events. Built strictly following OOP principles (Encapsulation, Inheritance, Polymorphism, Abstraction). Recognised as one of the Best 10 OOP Projects of the faculty.
+          </p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://github.com/TRuwantha128/Waya-Sport-Project" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cafe Project -->
+      <div class="project-card">
+        <div class="project-thumb"><img src="cafe.webp" alt="Cafe Management System"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">Swing GUI</span>
+          </div>
+          <h3 class="project-title">Cafe Management System</h3>
+          <p class="project-desc">
+            A Java Swing desktop application for cafe management — covering order handling, menu management, and billing with a clean graphical interface. Built applying core OOP principles in a practical hospitality scenario.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/TRuwantha128/Cafe-Project" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Restaurant App -->
+      <div class="project-card">
+        <div class="project-thumb"><img src="rest.jpeg" alt="Restaurant Management System"></div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">Swing GUI</span>
+            <span class="project-tag">OOP</span>
+          </div>
+          <h3 class="project-title">Restaurant Management System</h3>
+          <p class="project-desc">
+            My first complete Java project — a restaurant system with login validation, an interactive menu with quantity selection, real-time tax and total calculation, and a receipt generator. Built with Java Swing using event listeners, spinners, and checkbox components, applying OOP from the ground up.
+          </p>
+          <div class="project-links">
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://github.com/TRuwantha128" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator -->
+      <div class="project-card">
+        <div class="project-thumb">🧮</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">Swing GUI</span>
+          </div>
+          <h3 class="project-title">Java GUI Calculator</h3>
+          <p class="project-desc">
+            A clean, fully functional calculator built with Java Swing. Supports all basic arithmetic operations with a user-friendly interface and proper error handling for invalid inputs — an early project that solidified my foundation in event-driven programming and OOP design.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/TRuwantha128/Calculator-Project" class="project-link" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">Experience &amp; Education</h2>
+    <div class="section-divider"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <p class="timeline-year">2024 — Present</p>
+        <h3 class="timeline-role">Independent Mobile Developer</h3>
+        <p class="timeline-company">Self-Initiated Projects, Sri Lanka</p>
+        <p class="timeline-desc">
+          Building full-stack Flutter applications including a taxi booking app with Firebase &amp; Google Maps, a WhatsApp automation scheduler, and a university GPA calculator. Focused on clean architecture, real-world UX, and shipping complete, working products.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <p class="timeline-year">2023 — 2024</p>
+        <h3 class="timeline-role">Web &amp; Game Developer</h3>
+        <p class="timeline-company">Personal Projects</p>
+        <p class="timeline-desc">
+          Developed a Super Mario platformer and a typing speed PWA, both deployed as Android apps using Capacitor. Built hands-on skills in DOM manipulation, game physics, collision detection, and cross-platform mobile deployment.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <p class="timeline-year">2023 — Present</p>
+        <h3 class="timeline-role">BSc in Applied Sciences (UGC)</h3>
+        <p class="timeline-company">Wayamba University of Sri Lanka</p>
+        <p class="timeline-desc">
+          Studying software engineering, object-oriented programming, databases, and system design. Developing parallel interest in Business Analysis — learning requirements gathering, process mapping, and data-driven decision making. Group project (Waya Sport) selected among the Best 10 OOP Projects of the faculty.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Let's work together</h2>
+    <div class="section-divider" style="margin:0 auto 1rem;"></div>
+    <p style="color:var(--muted); max-width:500px; margin:0 auto 0;">
+      I'm currently open to internship opportunities and junior developer roles in mobile and web development. Drop me an email and I'll get back to you!
+    </p>
+    <a href="mailto:tharinduruwantha128@gmail.com" class="contact-email">
+      tharinduruwantha128@gmail.com
+    </a>
+    <div class="social-links">
+      <a href="https://github.com/TRuwantha128" class="social-link" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="social-link" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Tharindu Ruwantha </p>
+</footer>
+
+</body>
+</html>
