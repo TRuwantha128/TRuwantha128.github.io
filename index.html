@@ -3,525 +3,829 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tharindu Ruwantha — Developer Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Tharindu Ruwantha — AI Engineer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --accent: #C8A96E;
-    --bg: #0E0E0E;
-    --surface: #161616;
-    --surface2: #1F1F1F;
-    --text: #F0EDE6;
-    --muted: #888;
-    --border: rgba(255,255,255,0.07);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg); color: var(--text);
-    font-family: 'DM Sans', sans-serif; font-weight: 300;
-    line-height: 1.7; font-size: 16px;
-  }
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.2rem 4rem;
-    background: rgba(14,14,14,0.85); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif; font-size: 1.3rem;
-    color: var(--accent); text-decoration: none; letter-spacing: 0.02em;
-  }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    color: var(--muted); text-decoration: none;
-    font-size: 0.875rem; letter-spacing: 0.06em; text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-  #hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding: 8rem 4rem 4rem; position: relative; overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(200,169,110,0.07) 0%, transparent 70%);
-  }
-  .hero-content { position: relative; z-index: 1; max-width: 700px; }
-  .hero-label {
-    display: inline-block; font-size: 0.75rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
-    border: 1px solid rgba(200,169,110,0.3); padding: 6px 14px; border-radius: 2px;
-  }
-  .hero-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 8vw, 6rem); line-height: 1.05;
-    font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.02em;
-  }
-  .hero-name span { color: var(--accent); }
-  .hero-tagline {
-    font-size: 1.125rem; color: var(--muted);
-    max-width: 500px; margin-bottom: 2.5rem; font-weight: 300;
-  }
-  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn {
-    padding: 0.875rem 2rem; border-radius: 3px;
-    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
-    cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block;
-  }
-  .btn-primary { background: var(--accent); color: #0E0E0E; border: none; }
-  .btn-primary:hover { background: #d4b87a; transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-  section { padding: 6rem 4rem; }
-  .section-label {
-    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 0.5rem;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
-    line-height: 1.15; margin-bottom: 1rem;
-  }
-  .section-divider { width: 40px; height: 2px; background: var(--accent); margin-bottom: 3rem; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  #about .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
-  .about-photo {
-    aspect-ratio: 3/4; background: var(--surface2); border-radius: 4px; overflow: hidden;
-    border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: 0.875rem; position: relative;
-  }
-  .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .photo-placeholder { text-align: center; padding: 2rem; position: absolute; }
-  .about-bio { font-size: 1.05rem; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
-  .skills-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
-  .skill-tag {
-    padding: 5px 14px; font-size: 0.8rem; letter-spacing: 0.05em;
-    border: 1px solid var(--border); border-radius: 2px;
-    color: var(--muted); background: var(--surface); transition: all 0.2s;
-  }
-  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
-  #projects { background: var(--surface); }
-  .projects-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;
-  }
-  .project-card {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 4px; overflow: hidden; transition: transform 0.25s, border-color 0.25s;
-  }
-  .project-card:hover { transform: translateY(-4px); border-color: rgba(200,169,110,0.3); }
-  .project-thumb {
-    aspect-ratio: 16/9; background: var(--surface2);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: 3rem; overflow: hidden; opacity: 1;
-  }
-  .project-thumb img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform 0.4s ease;
-  }
-  .project-card:hover .project-thumb img { transform: scale(1.04); }
-  .project-body { padding: 1.5rem; }
-  .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-  .project-tag {
-    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent); padding: 3px 8px;
-    border: 1px solid rgba(200,169,110,0.25); border-radius: 2px;
-  }
-  .project-title {
-    font-family: 'Playfair Display', serif; font-size: 1.25rem;
-    font-weight: 700; margin-bottom: 0.5rem;
-  }
-  .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
-  .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .project-link {
-    font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--text); text-decoration: none;
-    border-bottom: 1px solid var(--border); padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .project-link:hover { color: var(--accent); border-color: var(--accent); }
-  .project-link.disabled { opacity: 0.35; pointer-events: none; cursor: default; }
-  .timeline { position: relative; padding-left: 2rem; }
-  .timeline::before {
-    content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
-    width: 1px; background: var(--border);
-  }
-  .timeline-item { position: relative; margin-bottom: 3rem; }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -2rem; top: 8px;
-    width: 9px; height: 9px; background: var(--accent);
-    border-radius: 50%; transform: translateX(-4px);
-  }
-  .timeline-year {
-    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 0.4rem;
-  }
-  .timeline-role { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
-  .timeline-company { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem; }
-  .timeline-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
-  #contact { background: var(--surface); text-align: center; }
-  .contact-email {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 700;
-    color: var(--accent); text-decoration: none;
-    display: block; margin: 1.5rem 0 2rem; transition: opacity 0.2s;
-  }
-  .contact-email:hover { opacity: 0.75; }
-  .social-links { display: flex; justify-content: center; gap: 2rem; }
-  .social-link {
-    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; transition: color 0.2s;
-  }
-  .social-link:hover { color: var(--accent); }
-  footer {
-    text-align: center; padding: 2rem 4rem;
-    font-size: 0.8rem; color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 4rem 1.5rem; }
-    #hero { padding: 6rem 1.5rem 3rem; }
-    #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero-content > * { animation: fadeUp 0.7s ease both; }
-  .hero-label   { animation-delay: 0.1s; }
-  .hero-name    { animation-delay: 0.25s; }
-  .hero-tagline { animation-delay: 0.4s; }
-  .btn-group    { animation-delay: 0.55s; }
+:root {
+  --bg: #020408;
+  --bg2: #060d14;
+  --surface: #0a1628;
+  --surface2: #0f1f35;
+  --cyan: #00d4ff;
+  --cyan2: #00ffcc;
+  --purple: #7c3aed;
+  --purple2: #a855f7;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+  --border: rgba(0,212,255,0.12);
+  --border2: rgba(0,212,255,0.06);
+  --glow: rgba(0,212,255,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:400;line-height:1.7;font-size:16px;
+  overflow-x:hidden;
+}
+
+/* ── CANVAS BG ── */
+#neural-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.35;pointer-events:none}
+
+/* ── SCAN LINE OVERLAY ── */
+.scanlines{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 4rem;
+  background:rgba(2,4,8,0.8);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'JetBrains Mono',monospace;font-size:0.9rem;
+  color:var(--cyan);text-decoration:none;letter-spacing:0.05em;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.nav-logo::before{content:'> ';opacity:0.5}
+.nav-logo .cursor{
+  display:inline-block;width:2px;height:14px;
+  background:var(--cyan);margin-left:2px;
+  animation:blink 1s step-end infinite;vertical-align:middle;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{
+  color:var(--muted2);text-decoration:none;
+  font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;
+  font-family:'JetBrains Mono',monospace;
+  transition:color 0.2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--cyan);transform:scaleX(0);
+  transition:transform 0.2s;transform-origin:left;
+}
+.nav-links a:hover{color:var(--cyan)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-status{
+  display:flex;align-items:center;gap:0.5rem;
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  color:var(--cyan2);
+}
+.status-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--cyan2);
+  box-shadow:0 0 8px var(--cyan2);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:8rem 4rem 4rem;position:relative;z-index:2;
+}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:5rem;align-items:center}
+.hero-left{}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:2rem;
+  border:1px solid rgba(0,212,255,0.3);padding:6px 14px;border-radius:4px;
+  background:rgba(0,212,255,0.05);
+}
+.badge-blink{
+  width:6px;height:6px;border-radius:50%;background:var(--cyan2);
+  animation:blink 0.8s step-end infinite;
+  box-shadow:0 0 6px var(--cyan2);
+}
+.hero-name{
+  font-size:clamp(2.8rem,6vw,5.5rem);line-height:1.05;
+  font-weight:700;margin-bottom:0.5rem;letter-spacing:-0.03em;
+}
+.hero-name .line1{
+  color:var(--muted2);font-size:0.45em;font-weight:400;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;
+  display:block;margin-bottom:0.3rem;
+}
+.hero-name .line1 .hi{color:var(--cyan)}
+.hero-name .name-text{
+  background:linear-gradient(135deg,#e2e8f0 30%,var(--cyan) 70%,var(--purple2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-family:'JetBrains Mono',monospace;font-size:1.1rem;
+  color:var(--cyan);margin-bottom:1.5rem;min-height:1.8rem;
+}
+.typed-text{}
+.typed-cursor{
+  display:inline-block;width:2px;height:1.1rem;
+  background:var(--cyan);margin-left:2px;vertical-align:middle;
+  animation:blink 0.7s step-end infinite;
+}
+.hero-desc{font-size:1rem;color:var(--muted2);max-width:520px;margin-bottom:2.5rem;line-height:1.8}
+.btn-group{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  padding:0.75rem 1.75rem;border-radius:4px;
+  font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.25s;text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:'Space Grotesk',sans-serif;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  color:#020408;border:none;
+  box-shadow:0 0 20px rgba(0,212,255,0.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 35px rgba(0,212,255,0.5)}
+.btn-outline{
+  background:transparent;color:var(--cyan);
+  border:1px solid rgba(0,212,255,0.4);
+}
+.btn-outline:hover{background:rgba(0,212,255,0.08);border-color:var(--cyan);transform:translateY(-2px)}
+
+/* ── HERO RIGHT: terminal card ── */
+.hero-terminal{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 0 60px rgba(0,212,255,0.08),0 0 120px rgba(124,58,237,0.05);
+  position:relative;
+}
+.hero-terminal::before{
+  content:'';position:absolute;inset:-1px;
+  background:linear-gradient(135deg,rgba(0,212,255,0.2),transparent 50%,rgba(168,85,247,0.15));
+  border-radius:12px;z-index:-1;
+}
+.terminal-header{
+  background:var(--surface2);padding:0.75rem 1rem;
+  display:flex;align-items:center;gap:0.5rem;
+  border-bottom:1px solid var(--border);
+}
+.t-dot{width:10px;height:10px;border-radius:50%}
+.t-dot.r{background:#ff5f57}.t-dot.y{background:#ffbd2e}.t-dot.g{background:#28ca41}
+.terminal-title{
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  color:var(--muted);margin-left:auto;margin-right:auto;
+}
+.terminal-body{padding:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:2}
+.t-line{display:flex;gap:0.5rem;margin-bottom:0.1rem}
+.t-prompt{color:var(--cyan2);flex-shrink:0}
+.t-cmd{color:var(--text)}
+.t-out{color:var(--muted2);padding-left:1rem}
+.t-out.ok{color:#4ade80}
+.t-out.warn{color:#fbbf24}
+.t-out.hi{color:var(--cyan)}
+.t-blank{height:0.5rem}
+.t-cursor-line{display:flex;gap:0.5rem;align-items:center}
+.t-cursor{
+  width:8px;height:14px;background:var(--cyan);
+  animation:blink 1s step-end infinite;
+  box-shadow:0 0 8px var(--cyan);
+}
+
+/* ── SECTION BASE ── */
+section{padding:6rem 4rem;position:relative;z-index:2}
+.container{max-width:1100px;margin:0 auto}
+.sec-pre{
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;
+}
+.sec-pre::before{content:'//'}
+.sec-title{
+  font-size:clamp(2rem,4vw,3rem);font-weight:700;
+  line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em;
+}
+.sec-line{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,var(--cyan),transparent);
+  margin-bottom:3.5rem;
+}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:280px 1fr;gap:4rem;align-items:start}
+.about-photo-wrap{position:relative}
+.about-photo{
+  aspect-ratio:3/4;border-radius:8px;overflow:hidden;
+  border:1px solid var(--border);position:relative;
+  box-shadow:0 0 40px rgba(0,212,255,0.1);
+}
+.about-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.9)}
+.photo-scan{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,transparent 0%,rgba(0,212,255,0.03) 50%,transparent 100%);
+  animation:scan 3s linear infinite;
+}
+@keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+.photo-corner{
+  position:absolute;width:14px;height:14px;border-color:var(--cyan);border-style:solid;
+}
+.photo-corner.tl{top:8px;left:8px;border-width:2px 0 0 2px}
+.photo-corner.tr{top:8px;right:8px;border-width:2px 2px 0 0}
+.photo-corner.bl{bottom:8px;left:8px;border-width:0 0 2px 2px}
+.photo-corner.br{bottom:8px;right:8px;border-width:0 2px 2px 0}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.5rem;
+}
+.stat-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;padding:0.75rem;text-align:center;
+}
+.stat-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.4rem;font-weight:700;color:var(--cyan);
+  display:block;
+}
+.stat-lbl{font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.about-bio{font-size:0.97rem;color:var(--muted2);line-height:1.9;margin-bottom:1.5rem}
+.skills-wrap{margin-top:1.5rem}
+.skills-cat{margin-bottom:1.5rem}
+.skills-cat-title{
+  font-family:'JetBrains Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);
+  margin-bottom:0.6rem;opacity:0.7;
+}
+.skills-row{display:flex;flex-wrap:wrap;gap:0.5rem}
+.skill-tag{
+  padding:4px 12px;font-size:0.75rem;font-family:'JetBrains Mono',monospace;
+  border:1px solid var(--border);border-radius:3px;
+  color:var(--muted2);background:var(--surface);
+  transition:all 0.2s;cursor:default;
+}
+.skill-tag:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,212,255,0.05);box-shadow:0 0 10px rgba(0,212,255,0.1)}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg2)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.5rem}
+.project-card{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:8px;overflow:hidden;
+  transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;
+  position:relative;
+}
+.project-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,212,255,0.03),transparent);
+  opacity:0;transition:opacity 0.3s;pointer-events:none;
+  border-radius:8px;
+}
+.project-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(0,212,255,0.3);
+  box-shadow:0 0 40px rgba(0,212,255,0.08),0 20px 40px rgba(0,0,0,0.4);
+}
+.project-card:hover::after{opacity:1}
+.project-thumb{
+  aspect-ratio:16/9;background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.project-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+.project-card:hover .project-thumb img{transform:scale(1.05)}
+.project-thumb-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 50%,rgba(10,22,40,0.9));
+}
+.project-body{padding:1.25rem}
+.project-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.75rem}
+.project-tag{
+  font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--cyan);padding:2px 8px;
+  border:1px solid rgba(0,212,255,0.2);border-radius:3px;
+  font-family:'JetBrains Mono',monospace;
+}
+.project-title{font-size:1.05rem;font-weight:600;margin-bottom:0.4rem;letter-spacing:-0.01em}
+.project-desc{font-size:0.84rem;color:var(--muted2);line-height:1.7;margin-bottom:1rem}
+.project-links{display:flex;gap:0.75rem;flex-wrap:wrap}
+.project-link{
+  font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  border:1px solid var(--border);border-radius:3px;padding:4px 10px;
+  font-family:'JetBrains Mono',monospace;
+  transition:all 0.2s;
+}
+.project-link:hover{color:var(--cyan);border-color:rgba(0,212,255,0.4);background:rgba(0,212,255,0.05)}
+.project-link.disabled{opacity:0.3;pointer-events:none}
+
+/* ── EXPERIENCE ── */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.timeline{position:relative}
+.timeline-item{
+  position:relative;padding-left:2rem;margin-bottom:2.5rem;
+  border-left:1px solid var(--border);
+}
+.timeline-item::before{
+  content:'';position:absolute;left:-5px;top:6px;
+  width:9px;height:9px;background:var(--bg2);
+  border:1.5px solid var(--cyan);border-radius:50%;
+  box-shadow:0 0 10px rgba(0,212,255,0.5);
+}
+.timeline-item:last-child{margin-bottom:0}
+.tl-year{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;letter-spacing:0.15em;color:var(--cyan);margin-bottom:0.3rem;
+}
+.tl-role{font-size:1rem;font-weight:600;margin-bottom:0.15rem}
+.tl-company{font-size:0.82rem;color:var(--muted);margin-bottom:0.6rem}
+.tl-desc{font-size:0.84rem;color:var(--muted2);line-height:1.8}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg2);text-align:center}
+.contact-card{
+  max-width:700px;margin:0 auto;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:3rem;
+  box-shadow:0 0 80px rgba(0,212,255,0.06);
+  position:relative;overflow:hidden;
+}
+.contact-card::before{
+  content:'';position:absolute;top:-50%;left:-50%;right:-50%;
+  height:200%;
+  background:conic-gradient(from 0deg,transparent,rgba(0,212,255,0.05),transparent,rgba(124,58,237,0.04),transparent);
+  animation:spin 8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.contact-inner{position:relative;z-index:1}
+.contact-email{
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(1rem,2.5vw,1.4rem);font-weight:500;
+  color:var(--cyan);text-decoration:none;
+  display:block;margin:1.5rem 0 2rem;
+  transition:opacity 0.2s;
+}
+.contact-email:hover{opacity:0.7}
+.social-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.social-link{
+  font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted2);text-decoration:none;
+  border:1px solid var(--border);border-radius:4px;
+  padding:8px 20px;font-family:'JetBrains Mono',monospace;
+  transition:all 0.2s;
+}
+.social-link:hover{color:var(--cyan);border-color:rgba(0,212,255,0.4);background:rgba(0,212,255,0.05)}
+
+footer{
+  text-align:center;padding:1.5rem 4rem;
+  font-family:'JetBrains Mono',monospace;font-size:0.72rem;
+  color:var(--muted);border-top:1px solid var(--border);position:relative;z-index:2;
+}
+footer span{color:var(--cyan)}
+
+/* ── ANIMATIONS ── */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── GLITCH ── */
+.glitch{position:relative}
+.glitch::before,.glitch::after{
+  content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
+  background:transparent;clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);
+}
+.glitch::before{color:var(--cyan);animation:glitch1 3s infinite;left:2px}
+.glitch::after{color:var(--purple2);animation:glitch2 3s infinite;left:-2px}
+@keyframes glitch1{
+  0%,90%,100%{clip-path:polygon(0 0,0 0,0 0,0 0);opacity:0}
+  92%{clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%);opacity:0.7;transform:translateX(3px)}
+  94%{clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);opacity:0.7;transform:translateX(-3px)}
+  96%{opacity:0}
+}
+@keyframes glitch2{
+  0%,88%,100%{clip-path:polygon(0 0,0 0,0 0,0 0);opacity:0}
+  90%{clip-path:polygon(0 50%,100% 50%,100% 70%,0 70%);opacity:0.7;transform:translateX(-3px)}
+  92%{clip-path:polygon(0 10%,100% 10%,100% 25%,0 25%);opacity:0.7;transform:translateX(3px)}
+  94%{opacity:0}
+}
+
+/* ── GRID DECORATION ── */
+.grid-bg{
+  position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(0,212,255,0.3);border-radius:2px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .nav-status{display:none}
+  section{padding:4rem 1.5rem}
+  #hero{padding:6rem 1.5rem 3rem}
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
+  .hero-terminal{display:none}
+  .about-grid{grid-template-columns:1fr;gap:2rem}
+  .about-photo{max-width:200px}
+  .projects-grid{grid-template-columns:1fr}
+  .exp-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
+<canvas id="neural-canvas"></canvas>
+<div class="scanlines"></div>
+
+<!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">Tharindu Ruwantha</a>
+  <a href="#hero" class="nav-logo">Tharindu<span class="cursor"></span></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    <span>Available for roles</span>
+  </div>
 </nav>
 
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <span class="hero-label">Available for internships &amp; junior roles</span>
-    <h1 class="hero-name">
-      Hello, I'm<br><span>Tharindu Ruwantha</span>
-    </h1>
-    <p class="hero-tagline">
-      A mobile &amp; web developer and aspiring Business Analyst from Sri Lanka — bridging technology and business through Flutter, JavaScript, Java, and data-driven thinking.
-    </p>
-    <div class="btn-group">
-      <a href="#projects" class="btn btn-primary">View My Work</a>
-      <a href="#contact"  class="btn btn-outline">Get In Touch</a>
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="badge-blink"></div>
+        Available for internships &amp; junior roles
+      </div>
+      <h1 class="hero-name">
+        <span class="line1"><span class="hi">hello();</span> // I'm</span>
+        <span class="name-text glitch" data-text="Tharindu Ruwantha">Tharindu Ruwantha</span>
+      </h1>
+      <div class="hero-subtitle">
+        <span class="typed-text"></span><span class="typed-cursor"></span>
+      </div>
+      <p class="hero-desc">
+        A mobile &amp; web developer from Sri Lanka building practical, polished apps with Flutter, JavaScript, and Java. Bridging technology with business through clean code and data-driven thinking.
+      </p>
+      <div class="btn-group">
+        <a href="#projects" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          View Projects
+        </a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <div class="t-dot r"></div><div class="t-dot y"></div><div class="t-dot g"></div>
+        <div class="terminal-title">tharindu@portfolio ~ zsh</div>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">whoami</span></div>
+        <div class="t-out hi">Tharindu Ruwantha</div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">cat skills.json</span></div>
+        <div class="t-out">{ <span class="hi">"primary"</span>: [</div>
+        <div class="t-out">&nbsp; <span class="ok">"Flutter"</span>, <span class="ok">"Dart"</span>,</div>
+        <div class="t-out">&nbsp; <span class="ok">"React"</span>, <span class="ok">"JavaScript"</span>,</div>
+        <div class="t-out">&nbsp; <span class="ok">"Firebase"</span>, <span class="ok">"Java"</span></div>
+        <div class="t-out">] }</div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">git log --oneline -3</span></div>
+        <div class="t-out warn">a4f2c1b SwiftRide taxi app shipped 🚀</div>
+        <div class="t-out warn">7e9d3f8 AutoBot Pro — scheduler app</div>
+        <div class="t-out warn">3c1a8e0 GPA Calculator deployed</div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">./start.sh --status</span></div>
+        <div class="t-out ok">✓ Open to opportunities</div>
+        <div class="t-blank"></div>
+        <div class="t-cursor-line"><span class="t-prompt">❯</span><div class="t-cursor"></div></div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-photo">
-        <div class="photo-placeholder">
-          <p style="font-size:2rem; margin-bottom:0.5rem"></p>
-          <p style="font-size:0.75rem; margin-top:0.25rem; opacity:0.6"></p>
+    <div class="about-grid reveal">
+      <div class="about-photo-wrap">
+        <div class="about-photo">
+          <img src="1.jpeg" alt="Tharindu Ruwantha">
+          <div class="photo-scan"></div>
+          <div class="photo-corner tl"></div>
+          <div class="photo-corner tr"></div>
+          <div class="photo-corner bl"></div>
+          <div class="photo-corner br"></div>
         </div>
-        
-             <img src="1.jpeg" alt="Tharindu Ruwantha"> 
+        <div class="about-stats">
+          <div class="stat-box"><span class="stat-num">10+</span><span class="stat-lbl">Projects</span></div>
+          <div class="stat-box"><span class="stat-num">3+</span><span class="stat-lbl">Years</span></div>
+          <div class="stat-box"><span class="stat-num">5</span><span class="stat-lbl">Stacks</span></div>
+          <div class="stat-box"><span class="stat-num">🏆</span><span class="stat-lbl">Top 10 OOP</span></div>
+        </div>
       </div>
       <div>
-        <p class="section-label">About Me</p>
-        <h2 class="section-title">Developer &amp; aspiring<br>Business Analyst</h2>
-        <div class="section-divider"></div>
-        <p class="about-bio">
-          I'm a Mobile &amp; Web App Developer with expertise in Flutter, React, and JavaScript, currently pursuing a BSc in Applied Sciences at Wayamba University of Sri Lanka. I build practical, polished applications — from full-stack mobile apps to automation tools.
-        </p>
-        <p class="about-bio">
-          Over time I've developed a strong interest in Business Analysis, combining my technical background with a desire to understand and optimise business processes. I'm actively learning BA methodologies — requirements gathering, process mapping, and data analysis — to bridge the gap between technology and business. My goal is to grow as a Business Analyst while staying connected to my technical roots.
-        </p>
-        <div class="skills-row">
-          <span class="skill-tag">Flutter</span>
-          <span class="skill-tag">Dart</span>
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">Java</span>
-          <span class="skill-tag">JavaScript</span>
-          <span class="skill-tag">HTML / CSS</span>
-          <span class="skill-tag">Firebase</span>
-          <span class="skill-tag">Google Maps API</span>
-          <span class="skill-tag">SQL</span>
-          <span class="skill-tag">Android Studio</span>
-          <span class="skill-tag">Capacitor</span>
-          <span class="skill-tag">Git</span>
-          <span class="skill-tag">OOP</span>
-          <span class="skill-tag">Requirements Gathering</span>
-          <span class="skill-tag">Process Mapping</span>
-          <span class="skill-tag">Data Analysis</span>
-          <span class="skill-tag">Business Analysis</span>
+        <p class="sec-pre">About Me</p>
+        <h2 class="sec-title">Developer &amp;<br>Aspiring BA</h2>
+        <div class="sec-line"></div>
+        <p class="about-bio">I'm a Mobile &amp; Web App Developer with expertise in Flutter, React, and JavaScript — currently pursuing a BSc in Applied Sciences at Wayamba University of Sri Lanka. I build practical, polished apps: from full-stack mobile platforms to automation tools.</p>
+        <p class="about-bio">I've developed a strong parallel interest in Business Analysis, combining my technical background with a desire to understand business processes. Actively learning BA methodologies — requirements gathering, process mapping, and data analysis — to bridge tech and business.</p>
+        <div class="skills-wrap">
+          <div class="skills-cat">
+            <div class="skills-cat-title">Mobile &amp; Frontend</div>
+            <div class="skills-row">
+              <span class="skill-tag">Flutter</span>
+              <span class="skill-tag">Dart</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">HTML / CSS</span>
+            </div>
+          </div>
+          <div class="skills-cat">
+            <div class="skills-cat-title">Backend &amp; Tools</div>
+            <div class="skills-row">
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">Firebase</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Google Maps API</span>
+              <span class="skill-tag">Android Studio</span>
+              <span class="skill-tag">Capacitor</span>
+              <span class="skill-tag">Git</span>
+            </div>
+          </div>
+          <div class="skills-cat">
+            <div class="skills-cat-title">Business &amp; Analysis</div>
+            <div class="skills-row">
+              <span class="skill-tag">Requirements Gathering</span>
+              <span class="skill-tag">Process Mapping</span>
+              <span class="skill-tag">Data Analysis</span>
+              <span class="skill-tag">OOP Design</span>
+            </div>
+          </div>
         </div>
-        <div style="margin-top:2rem;">
-          <a href="CV.pdf" class="btn btn-outline" download>Download CV</a>
+        <div style="margin-top:2rem">
+          <a href="CV.pdf" class="btn btn-outline" download>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download CV
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <p class="section-label">My Work</p>
-    <h2 class="section-title">Selected Projects</h2>
-    <div class="section-divider"></div>
+    <p class="sec-pre">My Work</p>
+    <h2 class="sec-title">Selected Projects</h2>
+    <div class="sec-line"></div>
     <div class="projects-grid">
 
-      <!-- SwiftRide -->
-      <div class="project-card">
-        <div class="project-thumb"><img src="switride.jpeg" alt="SwiftRide app"></div>
+      <div class="project-card reveal">
+        <div class="project-thumb"><img src="switride.jpeg" alt="SwiftRide"><div class="project-thumb-overlay"></div></div>
         <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Flutter</span>
-            <span class="project-tag">Firebase</span>
-            <span class="project-tag">Google Maps</span>
-          </div>
+          <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">Firebase</span><span class="project-tag">Google Maps</span></div>
           <h3 class="project-title">SwiftRide</h3>
-          <p class="project-desc">
-            A full-stack taxi booking app inspired by PickMe &amp; Uber, built for the Sri Lankan market. Features OTP phone authentication, real-time Google Maps route tracking, multiple ride types (Tuk, Bike, Flex, Mini), automatic fare calculation, live driver matching, and ride history — with complete dark/light theme support.
-          </p>
+          <p class="project-desc">Full-stack taxi booking app inspired by PickMe &amp; Uber. Features OTP phone auth, real-time Maps routing, multiple ride types, live driver matching, and dark/light theme.</p>
           <div class="project-links">
-            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
-            <a href="#" class="project-link disabled">GitHub (Coming Soon)</a>
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn →</a>
+            <a href="#" class="project-link disabled">GitHub (Soon)</a>
           </div>
         </div>
       </div>
 
-      <!-- AutoBot Pro -->
-      <div class="project-card">
-        <div class="project-thumb"><img src="autobot.jpeg" alt="AutoBot Pro"></div>
+      <div class="project-card reveal">
+        <div class="project-thumb"><img src="autobot.jpeg" alt="AutoBot Pro"><div class="project-thumb-overlay"></div></div>
         <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Flutter</span>
-            <span class="project-tag">Android</span>
-            <span class="project-tag">Automation</span>
-          </div>
-          <h3 class="project-title">AutoBot Pro — Scheduler</h3>
-          <p class="project-desc">
-            A WhatsApp &amp; Facebook automation app built entirely in Flutter. Schedules messages using Android Accessibility Service — no manual tap needed. Supports bulk messaging, retry logic on failure, Facebook story/post automation, message templates, PIN lock, and full background operation even after reboot.
-          </p>
+          <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">Android</span><span class="project-tag">Automation</span></div>
+          <h3 class="project-title">AutoBot Pro</h3>
+          <p class="project-desc">WhatsApp &amp; Facebook automation app. Schedules messages via Android Accessibility Service — supports bulk messaging, retry logic, story automation, PIN lock, and background operation.</p>
           <div class="project-links">
-            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn →</a>
             <a href="https://github.com/TRuwantha128" class="project-link" target="_blank">GitHub →</a>
           </div>
         </div>
       </div>
 
-      <!-- GPA Calculator -->
-      <div class="project-card">
-        <div class="project-thumb"><img src="gpa.jpeg" alt="GPA Calculator"></div>
+      <div class="project-card reveal">
+        <div class="project-thumb"><img src="gpa.jpeg" alt="GPA Calculator"><div class="project-thumb-overlay"></div></div>
         <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Flutter</span>
-            <span class="project-tag">Dart</span>
-            <span class="project-tag">Material Design 3</span>
-          </div>
+          <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">Dart</span><span class="project-tag">Material 3</span></div>
           <h3 class="project-title">GPA Calculator</h3>
-          <p class="project-desc">
-            A Flutter mobile app that automatically parses university module codes to organise results by subject, semester, and year. Students select letter grades and instantly get semester GPA, yearly GPA, subject-wise GPA, cumulative GPA, and degree classification. Uses SharedPreferences for fully offline data persistence.
-          </p>
+          <p class="project-desc">Parses university module codes to auto-organise results by subject, semester, and year. Instant semester/yearly/cumulative GPA with offline persistence via SharedPreferences.</p>
           <div class="project-links">
-            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn →</a>
             <a href="https://github.com/TRuwantha128" class="project-link" target="_blank">GitHub →</a>
           </div>
         </div>
       </div>
 
-      <!-- Super Mario Game -->
-      <div class="project-card">
-        <div class="project-thumb"><img src="super.jpeg" alt="Super Mario Game"></div>
+      <div class="project-card reveal">
+        <div class="project-thumb"><img src="super.jpeg" alt="Super Mario Game"><div class="project-thumb-overlay"></div></div>
         <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">JavaScript</span>
-            <span class="project-tag">HTML / CSS</span>
-            <span class="project-tag">Capacitor</span>
-          </div>
+          <div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">HTML/CSS</span><span class="project-tag">Capacitor</span></div>
           <h3 class="project-title">Super Mario Game</h3>
-          <p class="project-desc">
-            A fully functional Mario-style platformer with 20 hand-crafted levels, custom mobile touch controls, user login with progress saving, Web Audio API sound effects, and a first-time player tutorial — all built from scratch in vanilla JS/HTML/CSS then converted to a native Android APK with Capacitor.
-          </p>
+          <p class="project-desc">20 hand-crafted levels, mobile touch controls, user login with progress saving, Web Audio API effects — built from scratch in vanilla JS then deployed as a native Android APK.</p>
           <div class="project-links">
-            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn →</a>
             <a href="https://github.com/TRuwantha128/Mario-Game" class="project-link" target="_blank">GitHub →</a>
           </div>
         </div>
       </div>
 
-      <!-- Typer Game -->
-      <div class="project-card">
-        <div class="project-thumb"><img src="typer.jpeg" alt="Typer Game"></div>
+      <div class="project-card reveal">
+        <div class="project-thumb"><img src="typer.jpeg" alt="Typer Game"><div class="project-thumb-overlay"></div></div>
         <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">JavaScript</span>
-            <span class="project-tag">HTML / CSS</span>
-            <span class="project-tag">PWA</span>
-          </div>
+          <div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">HTML/CSS</span><span class="project-tag">PWA</span></div>
           <h3 class="project-title">Typer Game</h3>
-          <p class="project-desc">
-            A modern typing speed game with real-time WPM tracking, accuracy metrics, a streak system, particle effects, and multiple difficulty levels. Built as a single-file PWA with vanilla JS and deployed as an Android app via Capacitor — all from one shared codebase.
-          </p>
+          <p class="project-desc">Modern typing speed game with real-time WPM tracking, accuracy metrics, streak system, and particle effects. Single-file PWA deployed as an Android app via Capacitor.</p>
           <div class="project-links">
-            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn →</a>
             <a href="https://github.com/TRuwantha128/Typer-Game" class="project-link" target="_blank">GitHub →</a>
           </div>
         </div>
       </div>
 
-      <!-- Waya Sport -->
-      <div class="project-card">
-        <div class="project-thumb"><img src = "wayasport.png"></div>
+      <div class="project-card reveal">
+        <div class="project-thumb"><img src="wayasport.png" alt="Waya Sport"><div class="project-thumb-overlay"></div></div>
         <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Java</span>
-            <span class="project-tag">JavaScript</span>
-            <span class="project-tag">SQL</span>
-            <span class="project-tag">OOP</span>
-          </div>
-          <h3 class="project-title">Waya Sport — Sports Management System</h3>
-          <p class="project-desc">
-            A sports management system digitalising Wayamba University's indoor stadium — handling player records, facility bookings, and events. Built strictly following OOP principles (Encapsulation, Inheritance, Polymorphism, Abstraction). Recognised as one of the Best 10 OOP Projects of the faculty.
-          </p>
+          <div class="project-tags"><span class="project-tag">Java</span><span class="project-tag">JavaScript</span><span class="project-tag">SQL</span><span class="project-tag">OOP</span></div>
+          <h3 class="project-title">Waya Sport</h3>
+          <p class="project-desc">Sports management system digitising Wayamba University's indoor stadium — player records, facility bookings, events. Recognised among the Best 10 OOP Projects of the faculty. 🏆</p>
           <div class="project-links">
-            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
+            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn →</a>
             <a href="https://github.com/TRuwantha128/Waya-Sport-Project" class="project-link" target="_blank">GitHub →</a>
           </div>
         </div>
       </div>
 
-      <!-- Cafe Project -->
-      <div class="project-card">
-        <div class="project-thumb"><img src="cafe.webp" alt="Cafe Management System"></div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Java</span>
-            <span class="project-tag">Swing GUI</span>
-          </div>
-          <h3 class="project-title">Cafe Management System</h3>
-          <p class="project-desc">
-            A Java Swing desktop application for cafe management — covering order handling, menu management, and billing with a clean graphical interface. Built applying core OOP principles in a practical hospitality scenario.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/TRuwantha128/Cafe-Project" class="project-link" target="_blank">GitHub →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Restaurant App -->
-      <div class="project-card">
-        <div class="project-thumb"><img src="rest.jpeg" alt="Restaurant Management System"></div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Java</span>
-            <span class="project-tag">Swing GUI</span>
-            <span class="project-tag">OOP</span>
-          </div>
-          <h3 class="project-title">Restaurant Management System</h3>
-          <p class="project-desc">
-            My first complete Java project — a restaurant system with login validation, an interactive menu with quantity selection, real-time tax and total calculation, and a receipt generator. Built with Java Swing using event listeners, spinners, and checkbox components, applying OOP from the ground up.
-          </p>
-          <div class="project-links">
-            <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="project-link" target="_blank">LinkedIn Post →</a>
-            <a href="https://github.com/TRuwantha128" class="project-link" target="_blank">GitHub →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Calculator -->
-      <div class="project-card">
-        <div class="project-thumb">🧮</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="project-tag">Java</span>
-            <span class="project-tag">Swing GUI</span>
-          </div>
-          <h3 class="project-title">Java GUI Calculator</h3>
-          <p class="project-desc">
-            A clean, fully functional calculator built with Java Swing. Supports all basic arithmetic operations with a user-friendly interface and proper error handling for invalid inputs — an early project that solidified my foundation in event-driven programming and OOP design.
-          </p>
-          <div class="project-links">
-            <a href="https://github.com/TRuwantha128/Calculator-Project" class="project-link" target="_blank">GitHub →</a>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
+<!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
-    <p class="section-label">Background</p>
-    <h2 class="section-title">Experience &amp; Education</h2>
-    <div class="section-divider"></div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <p class="timeline-year">2024 — Present</p>
-        <h3 class="timeline-role">Independent Mobile Developer</h3>
-        <p class="timeline-company">Self-Initiated Projects, Sri Lanka</p>
-        <p class="timeline-desc">
-          Building full-stack Flutter applications including a taxi booking app with Firebase &amp; Google Maps, a WhatsApp automation scheduler, and a university GPA calculator. Focused on clean architecture, real-world UX, and shipping complete, working products.
-        </p>
+    <p class="sec-pre">Background</p>
+    <h2 class="sec-title">Experience &amp; Education</h2>
+    <div class="sec-line"></div>
+    <div class="exp-grid">
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <p class="tl-year">2024 — Present</p>
+          <h3 class="tl-role">Independent Mobile Developer</h3>
+          <p class="tl-company">Self-Initiated Projects · Sri Lanka</p>
+          <p class="tl-desc">Building full-stack Flutter apps including a taxi booking platform with Firebase &amp; Google Maps, a WhatsApp automation scheduler, and a university GPA calculator. Focused on clean architecture and shipping complete products.</p>
+        </div>
+        <div class="timeline-item">
+          <p class="tl-year">2023 — 2024</p>
+          <h3 class="tl-role">Web &amp; Game Developer</h3>
+          <p class="tl-company">Personal Projects</p>
+          <p class="tl-desc">Built a Super Mario platformer and a typing speed PWA, both deployed as Android apps via Capacitor. Developed DOM manipulation, game physics, collision detection, and cross-platform mobile skills.</p>
+        </div>
       </div>
-
-      <div class="timeline-item">
-        <p class="timeline-year">2023 — 2024</p>
-        <h3 class="timeline-role">Web &amp; Game Developer</h3>
-        <p class="timeline-company">Personal Projects</p>
-        <p class="timeline-desc">
-          Developed a Super Mario platformer and a typing speed PWA, both deployed as Android apps using Capacitor. Built hands-on skills in DOM manipulation, game physics, collision detection, and cross-platform mobile deployment.
-        </p>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <p class="tl-year">2023 — Present</p>
+          <h3 class="tl-role">BSc in Applied Sciences (UGC)</h3>
+          <p class="tl-company">Wayamba University of Sri Lanka</p>
+          <p class="tl-desc">Studying software engineering, OOP, databases, and system design. Developing parallel interest in Business Analysis — requirements gathering, process mapping, and data-driven decision making. Group project selected among Best 10 OOP Projects.</p>
+        </div>
+        <div class="timeline-item">
+          <p class="tl-year">Ongoing</p>
+          <h3 class="tl-role">Self-Learning: BA &amp; System Design</h3>
+          <p class="tl-company">Online Courses &amp; Projects</p>
+          <p class="tl-desc">Actively studying Business Analysis methodologies, BPMN process modelling, UML, and data analysis to bridge the gap between technical delivery and business strategy.</p>
+        </div>
       </div>
-
-      <div class="timeline-item">
-        <p class="timeline-year">2023 — Present</p>
-        <h3 class="timeline-role">BSc in Applied Sciences (UGC)</h3>
-        <p class="timeline-company">Wayamba University of Sri Lanka</p>
-        <p class="timeline-desc">
-          Studying software engineering, object-oriented programming, databases, and system design. Developing parallel interest in Business Analysis — learning requirements gathering, process mapping, and data-driven decision making. Group project (Waya Sport) selected among the Best 10 OOP Projects of the faculty.
-        </p>
-      </div>
-
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <p class="section-label">Get In Touch</p>
-    <h2 class="section-title">Let's work together</h2>
-    <div class="section-divider" style="margin:0 auto 1rem;"></div>
-    <p style="color:var(--muted); max-width:500px; margin:0 auto 0;">
-      I'm currently open to internship opportunities and junior developer roles in mobile and web development. Drop me an email and I'll get back to you!
-    </p>
-    <a href="mailto:tharinduruwantha128@gmail.com" class="contact-email">
-      tharinduruwantha128@gmail.com
-    </a>
-    <div class="social-links">
-      <a href="https://github.com/TRuwantha128" class="social-link" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="social-link" target="_blank">LinkedIn</a>
+    <p class="sec-pre" style="justify-content:center">Get In Touch</p>
+    <h2 class="sec-title" style="text-align:center">Let's work together</h2>
+    <div class="sec-line" style="margin:0 auto 3.5rem"></div>
+    <div class="contact-card reveal">
+      <div class="contact-inner">
+        <p style="color:var(--muted2);max-width:480px;margin:0 auto;font-size:0.97rem">
+          Open to internship opportunities and junior developer roles in mobile and web development. Drop me a message — I'll get back to you.
+        </p>
+        <a href="mailto:tharinduruwantha128@gmail.com" class="contact-email">
+          tharinduruwantha128@gmail.com
+        </a>
+        <div class="social-links">
+          <a href="https://github.com/TRuwantha128" class="social-link" target="_blank">GitHub</a>
+          <a href="https://www.linkedin.com/in/tharindu-ruwantha-1a342a308/" class="social-link" target="_blank">LinkedIn</a>
+          <a href="CV.pdf" class="social-link" download>Download CV</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2025 Tharindu Ruwantha </p>
+  <p>© 2025 <span>Tharindu Ruwantha</span> — Built with code &amp; coffee</p>
 </footer>
 
+<script>
+/* ─── NEURAL NETWORK CANVAS ─── */
+const canvas = document.getElementById('neural-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes = [], mouse = {x: -999, y: -999};
+
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize(); window.addEventListener('resize', resize);
+
+function mkNode(){
+  return {
+    x: Math.random()*W, y: Math.random()*H,
+    vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4,
+    r: Math.random()*2+1
+  };
+}
+for(let i=0;i<70;i++) nodes.push(mkNode());
+
+window.addEventListener('mousemove', e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  const MAX=120;
+
+  nodes.forEach(n=>{
+    n.x+=n.vx; n.y+=n.vy;
+    if(n.x<0||n.x>W) n.vx*=-1;
+    if(n.y<0||n.y>H) n.vy*=-1;
+
+    // mouse pull
+    const dx=mouse.x-n.x, dy=mouse.y-n.y, dm=Math.sqrt(dx*dx+dy*dy);
+    if(dm<200){n.x+=dx*0.002;n.y+=dy*0.002}
+
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,212,255,0.6)';
+    ctx.fill();
+  });
+
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<MAX){
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x,nodes[i].y);
+        ctx.lineTo(nodes[j].x,nodes[j].y);
+        const a=(1-d/MAX)*0.4;
+        ctx.strokeStyle=`rgba(0,212,255,${a})`;
+        ctx.lineWidth=0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ─── TYPEWRITER ─── */
+const phrases = [
+  'Mobile Developer',
+  'Flutter Engineer',
+  'Web Developer',
+  'JS Craftsman',
+  'Aspiring BA',
+];
+let pi=0, ci=0, deleting=false, typedEl=document.querySelector('.typed-text');
+function type(){
+  const phrase=phrases[pi];
+  if(!deleting){
+    typedEl.textContent=phrase.slice(0,++ci);
+    if(ci===phrase.length){deleting=true;setTimeout(type,1800);return}
+    setTimeout(type,85);
+  } else {
+    typedEl.textContent=phrase.slice(0,--ci);
+    if(ci===0){deleting=false;pi=(pi+1)%phrases.length;setTimeout(type,400);return}
+    setTimeout(type,45);
+  }
+}
+type();
+
+/* ─── SCROLL REVEAL ─── */
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.12});
+reveals.forEach(r=>obs.observe(r));
+</script>
 </body>
 </html>
