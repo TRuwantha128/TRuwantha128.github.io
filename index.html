@@ -1,3 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tharindu Ruwantha — sites, projects and experiments in Flutter, React and WebGL.">
+<meta name="theme-color" content="#0C0E11">
+<link rel="icon" href="/favicon.ico">
+<style>html{scroll-behavior:smooth}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Tharindu Ruwantha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -319,8 +328,42 @@ footer{ padding:26px 0 34px; }
   .js .rv{ opacity:1 !important; transform:none !important; }
   html{ scroll-behavior:auto; } *{ animation:none !important; }
 }
-</style>
 
+
+/* ==========================================================================
+   MOBILE FIXES — appended 2026-09-12. Phone-only rules; desktop is untouched.
+   ========================================================================== */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{ overflow-x:hidden; }
+
+@media (max-width: 900px){
+  /* The nav was set to display:none on phones with nothing to replace it, so
+     there was no way to reach any section. It comes back as a swipeable row. */
+  .bar-in{ flex-wrap:wrap; row-gap:2px; }
+  .bar nav{
+    display:flex !important;
+    order:3; flex:1 0 100%; width:100%;
+    gap:2px; margin-top:2px; padding-bottom:4px;
+    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .bar nav::-webkit-scrollbar{ display:none; }
+  .bar nav a{ white-space:nowrap; padding:7px 11px; font-size:13px; }
+  .sig{ margin-right:auto; }
+
+  /* Project rows truncated their one-line description to an ellipsis, which
+     on a narrow screen cut it after three words. Let it wrap instead. */
+  .row .nm2 span{ white-space:normal; overflow:visible; text-overflow:clip; }
+
+  /* smallest labels were 8.5-9px */
+  .row .tg span{ font-size:10px; }
+  dt{ font-size:10px; }
+}
+@media (max-width: 420px){
+  .bar nav a{ font-size:12.5px; padding:7px 9px; }
+}
+</style>
+</head>
+<body>
 <aside class="rail" aria-label="Quick links">
   <a class="vt" href="https://tharinduruwantha.dev" target="_blank" rel="noopener noreferrer">tharinduruwantha.dev</a>
   <span class="ln b"></span>
@@ -759,3 +802,5 @@ footer{ padding:26px 0 34px; }
   if (RM){ renderer.render(scene, camera); } else requestAnimationFrame(frame);
 })();
 </script>
+</body>
+</html>
