@@ -535,6 +535,30 @@ footer{ border-top:1px solid var(--line); padding-block:34px 46px; }
   *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
   .rise{ transform:none; }
 }
+
+
+/* ==========================================================================
+   MOBILE FIXES — appended 2026-09-12. Phone-only rules; desktop is untouched.
+   ========================================================================== */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{ overflow-x:hidden; }
+
+@media (max-width: 780px){
+  /* The section nav was flex-squeezed to about 60px wide inside the header
+     bar. Give it its own full-width row that swipes. */
+  .topbar{ flex-wrap:wrap; row-gap:8px; }
+  .nav{
+    order:9; flex:1 0 100%; width:100%; max-width:none;
+    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    padding-bottom:2px;
+  }
+  .nav::-webkit-scrollbar{ display:none; }
+  .nav a{ white-space:nowrap; flex:0 0 auto; }
+
+  /* smallest labels were 9-9.5px */
+  dt{ font-size:10.5px; }
+  .tag{ font-size:10px; }
+}
 </style>
 
 </head>
